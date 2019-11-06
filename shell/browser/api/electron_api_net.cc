@@ -7,6 +7,7 @@
 #include <string>
 
 #include "gin/handle.h"
+#include "net/base/network_change_notifier.h"
 #include "services/network/public/cpp/features.h"
 #include "shell/browser/api/electron_api_url_loader.h"
 #include "shell/common/gin_helper/dictionary.h"
@@ -33,6 +34,14 @@ v8::Local<v8::Value> Net::Create(v8::Isolate* isolate) {
 void Net::BuildPrototype(v8::Isolate* isolate,
                          v8::Local<v8::FunctionTemplate> prototype) {
   prototype->SetClassName(gin::StringToV8(isolate, "Net"));
+  gin_helper::ObjectTemplateBuilder(isolate, prototype->PrototypeTemplate())
+      .SetMethod("quit", &IsOnline);
+}
+
+// static
+bool Net::IsOnline() {
+  return net::NetworkChangeNotifier::GetConnectionType() !=
+         net::NetworkChangeNotifier::CONNECTION_NONE;
 }
 
 }  // namespace api

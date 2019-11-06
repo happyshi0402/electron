@@ -18,6 +18,8 @@ class Net : public gin_helper::Wrappable<Net> {
   static void BuildPrototype(v8::Isolate* isolate,
                              v8::Local<v8::FunctionTemplate> prototype);
 
+  static bool IsOnline();
+
   v8::Local<v8::Value> URLLoader(v8::Isolate* isolate);
 
  protected:

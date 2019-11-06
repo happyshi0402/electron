@@ -1402,6 +1402,12 @@ describe('net module', () => {
     });
   });
 
+  describe('net.isOnline()', () => {
+    it('returns a boolean', () => {
+      expect(net.isOnline()).to.be.a('boolean');
+    });
+  });
+
   describe('Stability and performance', () => {
     it('should free unreferenced, never-started request objects without crash', (done) => {
       net.request('https://test');
